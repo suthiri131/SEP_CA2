@@ -1,8 +1,5 @@
-<<<<<<< HEAD
+
 Scrum master loves Blue
-=======
-Green - su
->>>>>>> 1746dfd4ae0d60fbbb1bfb6da55d15da5732b39e
 
 maroon - member
 
