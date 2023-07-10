@@ -3,7 +3,7 @@ var dbconnect = {
     getConnection: function () {
         var conn = mysql.createConnection({
             host: "localhost",
-            user: "root",
+            user: "sep",
             password: "root1234",
             database: "islandfurniture-it07"
         });
