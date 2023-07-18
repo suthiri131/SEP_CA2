@@ -224,11 +224,9 @@ try {
             var password = document.getElementById("password").value;
             var repassword = document.getElementById("repassword").value;
             var ok = true;
-            console.log(oldPassword.length)
+            console.log(oldPassword)
             if (document.getElementById("profileForm").checkValidity()) {
-                if(oldPassword.length <=0){ok = false;}
-                
-                if (password != "" && repassword != "") {
+                if (oldPassword != "" && password != "" && repassword != "") {
                     var memberData = {
                         id: member.id,
                         password: oldPassword
