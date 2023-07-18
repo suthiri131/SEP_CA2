@@ -124,6 +124,7 @@ var memberDB = {
                             member.countryId = result[0].COUNTRY_ID;
                             member.wishlistId = result[0].WISHLIST_ID;
                             member.stripeCustomerId = result[0].STRIPECUSTOMERID;
+                            console.log(member)
                             conn.end();
                             return resolve(member);
                         }
