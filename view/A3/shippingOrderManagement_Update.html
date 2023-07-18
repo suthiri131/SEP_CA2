@@ -44,7 +44,7 @@
                 }).then(function (data) {
                     shippingOrder = data;
                     document.getElementById("soId").innerHTML = shippingOrder.id;
-                    var statusHtmlTxt = '<label>Status</label><select class="form-control" id="statusSelect" required="true">';
+                    var statusHtmlTxt = '<label>Status</label><select class="form-control" id="statusSelect" required="false">';
                     if (shippingOrder.status == 'Submitted') {
                         statusHtmlTxt += '<option>Shipped</option>'
                             + '<option>Unfulfillable</option>';
@@ -440,15 +440,15 @@
                                     <form role="form" id="updateForm" onsubmit="return false;">
                                         <div class="form-group">
                                             <label>Origin</label>
-                                            <select class="form-control" id="select_source" name="origin" required="true" disabled></select>
+                                            <select class="form-control" id="select_source" name="origin" required="false" disabled></select>
                                         </div>
                                         <div class="form-group">
                                             <label>Destination</label>
-                                            <select class="form-control" name="destination" id="select_destination" required="true" disabled></select>
+                                            <select class="form-control" name="destination" id="select_destination" required="false" disabled></select>
                                         </div>
                                         <div class="form-group">
                                             <label>Expected Receiving Date:</label>
-                                            <input class="form-control" id="expectedDate" type="date" required="true" disabled/>
+                                            <input class="form-control" id="expectedDate" type="date" required="false" disabled/>
                                         </div>
                                         <div class="form-group">
                                             <input type="submit" value="Update Shipping Order" onclick="update()" id="btnUpdate" class="btn btn-lg btn-primary btn-block" disabled />

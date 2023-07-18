@@ -30,4 +30,6 @@ class Member {
         this.stripeCustomerId = null;
     }
 }
+
+Math.abs(5)
 module.exports = Member;
