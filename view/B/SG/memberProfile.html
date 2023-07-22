@@ -226,8 +226,8 @@ try {
             var ok = true;
             console.log(oldPassword)
             if (document.getElementById("profileForm").checkValidity()) {
-                if(oldPassword.length <=0){ok = false;} 
-                if (password != "" && repassword != "") {
+                if(oldPassword.length <=0){password=""} 
+                if(oldPassword != "" && password != "" && repassword != ""){
                     var memberData = {
                         id: member.id,
                         password: oldPassword
