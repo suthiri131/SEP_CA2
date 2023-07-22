@@ -2,6 +2,8 @@
 <html>
 <script src="../../header.js"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 <body>
     <script>
         var authToken = null;
@@ -310,6 +312,97 @@ try {
                 }
             }
         }
+
+        //loyalty func
+        $(document).ready(function(){
+            let amtReq = [], tierName = [];
+
+            axios.get("http://localhost:8081/api/getLoyaltyTiers")
+                .then((res)=>{
+                    //  alert(JSON.stringify(res.data))
+                    let tiers = res.data
+
+                    tiers.forEach((tiers) => {
+                        amtReq.push(tiers.AMTOFSPENDINGREQUIRED);
+                        tierName.push(tiers.TIER);
+                    });
+                   
+                })
+                .catch((err)=>{
+                    alert(err)
+                })
+
+
+
+
+            let email = sessionStorage.getItem("memberEmail");
+            
+            axios.get("http://localhost:8081/api/getMember",
+            {
+                params:{
+                    "email":email}})
+                .then((res)=>{
+                    // alert(JSON.stringify(res.data.cumulativeSpending))
+                    let spending = JSON.stringify(res.data.cumulativeSpending)
+                    $("#loyaltyProgram").append("<h3>$"+spending+" dollars spend so far</h3>")
+
+                    let tier,amt;
+                    //find which tier
+                    for (let i = 0; i < tierName.length; i++) {
+                        if(spending <= amtReq[i]){tier=tierName[i];amt=amtReq[i]}
+                    }
+                    // alert(tier+""+amt)
+
+                    //set specific msg for tiers
+                    switch(tier){
+                        case "Classic":
+                            $("#loyaltyProgram").append("<br>");
+                            $("#loyaltyProgram").append("<p>Make more purchase to level up</p>");
+                            break;
+                        
+
+                        case "Bronze":
+                            $("#loyaltyProgram").append("<br>");
+                            $("#loyaltyProgram").append("<p>Thanks for your support<p>");
+                            break;
+                            
+
+                        case "Silver":
+                            $("#loyaltyProgram").append("<br>");
+                            $("#loyaltyProgram").append("<p>Thanks for your continuous support<p>");
+                            break;
+                            
+
+                        case "Gold":
+                            $("#loyaltyProgram").append("<br>");
+                            $("#loyaltyProgram").append("<p>Thanks for your great support<p>");
+                            break;
+                }
+
+                    let nextTier,indexFound;
+                    for (let i = 0; i < tierName.length; i++) {
+                        if(tierName[i] == tier){
+                            indexFound=i;break;
+                        }
+                    }
+
+                    //wont work if arr not sorted 
+                    //change -1 to +1 if arr is sorted in asc
+                    /* current arr is desc
+                    0- gold 5000
+                    1- silver 3000
+                    ...
+                    */
+                nextTier = amtReq[indexFound-1] - spending
+                $("#loyaltyProgram").append("<h4> Next Tier: "+tierName[indexFound-1]+" $"+nextTier+" more to reach!</h4>")
+                    
+                })
+                .catch((err)=>{
+                    console.log(err)
+                })
+                
+
+        })
 
         function pdpaWindow() {
             var myWindow = window.open("pdpa.html");
@@ -680,6 +773,7 @@ try {
                                 <h4>Sales History</h4>
                                 <div id="salesHistoryTab"></div>
                             </div>
+
                         </div>
                     </div>
                 </div>

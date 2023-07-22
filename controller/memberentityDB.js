@@ -251,4 +251,20 @@ app.put('/api/updateMemberDeliveryDetails', [middleware.checkToken, jsonParser],
         });
 });
 
+app.get('/api/getLoyaltyTiers', function (req, res) {
+    member.getLoyaltyTiers()
+        .then((result) => {
+            if(result) {
+                res.send(result);
+            }
+            else {
+                res.send({success: false});
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).send("Failed to get loyalty tiers");
+        });
+});
+
 module.exports = app;
