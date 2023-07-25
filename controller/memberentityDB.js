@@ -17,10 +17,10 @@ app.get('/api/memberAuthState', middleware.checkToken, function (req, res) {
 
 app.get('/api/getMember', function (req, res) {
     var email = req.query.email;
-    console.log(email);
+   
     member.getMember(email)
         .then((result) => {
-            console.log("in results")
+            
             res.send(result);
             
         })
