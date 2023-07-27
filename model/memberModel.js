@@ -124,7 +124,7 @@ var memberDB = {
                             member.countryId = result[0].COUNTRY_ID;
                             member.wishlistId = result[0].WISHLIST_ID;
                             member.stripeCustomerId = result[0].STRIPECUSTOMERID;
-                            console.log(member)
+                            
                             conn.end();
                             return resolve(member);
                         }
@@ -591,7 +591,38 @@ var memberDB = {
                 }
             });
         });
-    }
+    },
+
+
+    getLoyaltyTiers: function () {
+        return new Promise( ( resolve, reject ) => {
+            var conn = db.getConnection();
+            conn.connect(function (err) {
+                if (err) {
+                    console.log(err);
+                    conn.end();
+                    return reject(err);
+                }
+                else {
+                    sql = 'SELECT * FROM loyaltytierentity;';
+                    conn.query(sql, function (err, result) {
+                        if (err) {
+                            conn.end();
+                            return reject(err);
+                        } else {
+                            if(result) {
+                                conn.end();
+                                return resolve(result);
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    },
+
+
+
 };
 module.exports = memberDB
 
