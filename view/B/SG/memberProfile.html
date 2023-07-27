@@ -197,7 +197,7 @@
             return startDate.toLocaleDateString("en-US", options);
         }
         //added
- document.addEventListener('DOMContentLoaded', function () {
+ document.addEventListener('DOMContentLoaded', function retrieveUserInfo() {
 try {
     var memberData = JSON.parse(sessionStorage.getItem("member"));
 
@@ -407,7 +407,7 @@ try {
         function pdpaWindow() {
             var myWindow = window.open("pdpa.html");
         }
-        document.getElementById("overviewTab").addEventListener("click", retrieveUserData);
+   
     </script>
     <script src="menu2.js"></script>
     <div role="main" class="main">
