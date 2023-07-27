@@ -196,36 +196,42 @@
             var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
             return startDate.toLocaleDateString("en-US", options);
         }
+        function retrieveUserInfo(){
+            try {
+        var memberData = JSON.parse(sessionStorage.getItem("member"));
 
+        if (memberData) {
+            document.getElementById("name").value = memberData.name;
+            document.getElementById("email").value = memberData.email;
+            document.getElementById("phone").value = memberData.phone;
+            document.getElementById("country").value = memberData.city;
+            document.getElementById("address").value = memberData.address;
+            document.getElementById("securityQuestion").value = memberData.securityQuestion;
+            document.getElementById("securityAnswer").value = memberData.securityAnswer;
+            document.getElementById("age").value = memberData.age;
+            document.getElementById("income").value = memberData.income;
+            document.getElementById("serviceLevelAgreement").checked = memberData.sla === 1;
+        } else {
+            console.log("Member data not found.");
+        }
+    } catch (error) {
+        console.log("Error retrieving data in profile", error);
+    }
+        }
     
         //Tetrieving info through function retrieveUserInfo
- document.addEventListener('DOMContentLoaded', function retrieveUserInfo() {
-    try {
-                var memberData = JSON.parse(sessionStorage.getItem("member"));
+        document.addEventListener('DOMContentLoaded', function () {
+            retrieveUserInfo()
+});
 
-                if (memberData) {
-                document.getElementById("name").value = memberData.name;
-                document.getElementById("email").value = memberData.email;
-                document.getElementById("phone").value = memberData.phone;
-                document.getElementById("country").value = memberData.city;
-                document.getElementById("address").value = memberData.address;
-                document.getElementById("securityQuestion").value = memberData.securityQuestion;
-                document.getElementById("securityAnswer").value = memberData.securityAnswer;
-                document.getElementById("age").value = memberData.age;
-                document.getElementById("income").value = memberData.income;
-                document.getElementById("serviceLevelAgreement").checked = memberData.sla === 1;
-                } else {
-                console.log("Member data not found.");
-                }
-            } catch (error) {
-                console.log("Error etrieving data in profile", error);
-            }
- })
- function resetOnlyPassword(){
+function resetForm() {
+    
+    retrieveUserInfo()
     document.getElementById("oldPassword").value = "";
     document.getElementById("password").value = "";
     document.getElementById("repassword").value = "";
- }
+}
+
 
         async function submitForm() {
             var oldPassword = document.getElementById('oldPassword').value;
@@ -766,7 +772,7 @@
                                             <div class="form-group">
                                                 <input type="submit" onclick="submitForm()" value="Submit"
                                                     class="btn btn-primary" />
-                                                <input type="button" value="Reset" onclick="resetOnlyPassword()"
+                                                <input type="button" value="Reset" onclick="resetForm()"
                                                      class="btn btn-primary" />
                                             </div>
                                         </div>
