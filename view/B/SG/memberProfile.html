@@ -197,9 +197,10 @@
             return startDate.toLocaleDateString("en-US", options);
         }
 
-        //same code but in func
-        function setFields(){
-            try {
+    
+        //Tetrieving info through function retrieveUserInfo
+ document.addEventListener('DOMContentLoaded', function retrieveUserInfo() {
+    try {
                 var memberData = JSON.parse(sessionStorage.getItem("member"));
 
                 if (memberData) {
@@ -219,12 +220,12 @@
             } catch (error) {
                 console.log("Error etrieving data in profile", error);
             }
-        }
-
-        //added
- document.addEventListener('DOMContentLoaded', function retrieveUserInfo() {
-    setFields() 
  })
+ function resetOnlyPassword(){
+    document.getElementById("oldPassword").value = "";
+    document.getElementById("password").value = "";
+    document.getElementById("repassword").value = "";
+ }
 
         async function submitForm() {
             var oldPassword = document.getElementById('oldPassword').value;
@@ -765,7 +766,7 @@
                                             <div class="form-group">
                                                 <input type="submit" onclick="submitForm()" value="Submit"
                                                     class="btn btn-primary" />
-                                                <input type="button" value="Reset" onclick="setFields()"
+                                                <input type="button" value="Reset" onclick="resetOnlyPassword()"
                                                      class="btn btn-primary" />
                                             </div>
                                         </div>
